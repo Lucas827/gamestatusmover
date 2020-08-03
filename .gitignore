@@ -1,3 +1,4 @@
 #ignore config
 botconfig.json
 data
+package-lock.json
