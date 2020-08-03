@@ -1,10 +1,4 @@
 #ignore config
-<<<<<<< HEAD
-botconfig.json
-data
-package-lock.json
-=======
 #botconfig.json
 data
 #package-lock.json
->>>>>>> dev
