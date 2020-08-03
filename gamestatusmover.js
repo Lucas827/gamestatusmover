@@ -128,6 +128,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   globalGuildConf = client.settings.ensure(newMember.guild.id, defaultSettings);
   guildId = newMember.guild.id;
   a = globalGuildConf.channel;
+  console.log(guildId);
   main(a, guildId);
 })
 client.on('ready', () => {
