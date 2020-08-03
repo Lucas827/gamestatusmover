@@ -1,4 +1,4 @@
-#ignore config
-#botconfig.json
+#.gitignore
+botconfig.json
 data
-#package-lock.json
+package-lock.json
