@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const jsonstring = fs.readFileSync('./botconfig.json');
 const botconfig = JSON.parse(jsonstring);
 let status;
+let statusName;
 let chan;
 let user;
 let userId;
@@ -13,6 +14,7 @@ let userTBM;
 let guildTBM;
 let globalGuildConf;
 let guildId;
+let guildIdGetStatus;
 let a;
 let b;
 let c;
@@ -23,23 +25,18 @@ function getUser(c) { //this function gets the user to be moved(userTBM)
     userId = chan.members.map(user => user.id); /*parses the collection of members in the
     channel to get the id */
     userId = userId.toString(); //changes to id into a string
-    console.log("getUser performed successfully.")
 }
-function getStatus() { //this function gets the status of the user
+function getStatus(guildIdGetStatus) { //this function gets the status of the user
 userTBM = client.users.cache.get(userId);
 if (userTBM === undefined) {
-  console.log("No user in channel, or unable to retrieve userId")
 }
 else {
   status = userTBM.presence.activities;
-  console.log("userId received:" + userId);
   if (status.length === 0) {
-    console.log("no status, user is not playing a game")
     memberTBM = client.guilds.cache.get()
   }
   else {
-    console.log("status received, moving to: " + status);
-    moveUser();
+    moveUser(guildIdGetStatus);
   }
   
 }
@@ -48,19 +45,13 @@ else {
 function moveUser(guildTBM) {
   currentGuild = client.guilds.cache.get(guildTBM);
   memberTBM = currentGuild.members.cache.get(userId);
-  if (client.channels.cache.find(channel => channel.name === status) === undefined) {
-    console.log("user not playing game");
-    return;
-  }
-  if (memberTBM === undefined) {
-    return;
-  }
-  memberTBM.voice.setChannel(client.channels.cache.find(channel => channel.name === status));
+  statusName = status.toString();
+  test = "Escape from Tarkov";
+  memberTBM.voice.setChannel(client.channels.cache.find(channel => channel.name == statusName));
 }
 function main(b, d) { //starts process to move user
   getUser(b);
-  getStatus();
-  moveUser(d);
+  getStatus(d);
 }
 //enmap per server config
 client.settings = new Enmap({
@@ -79,7 +70,6 @@ client.on("guildDelete", guild => {
   client.settings.delete(guild.id);
 });
 client.on("message", async (message) => {
-  console.log("message event");
   if(!message.guild || message.author.bot) { 
     return; 
   }
@@ -121,14 +111,12 @@ client.on("message", async (message) => {
 });
 //voiceStateUpdate
 client.on('voiceStateUpdate', (oldMember, newMember) => {
-  console.log("voiceStateUpdate triggered");
   if(newMember.guild.id === undefined) {
     return;
   }
   globalGuildConf = client.settings.ensure(newMember.guild.id, defaultSettings);
   guildId = newMember.guild.id;
   a = globalGuildConf.channel;
-  console.log(guildId);
   main(a, guildId);
 })
 client.on('ready', () => {
