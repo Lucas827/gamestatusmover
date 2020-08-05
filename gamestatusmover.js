@@ -119,6 +119,21 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   a = globalGuildConf.channel;
   main(a, guildId);
 })
+client.on('presenceUpdate', (oldMember, newMember) => {
+  if(newMember === undefined) {
+    return;
+  }
+  if(newMember.guild.id === undefined) {
+    return;
+  }
+  if(newMember.voice === undefined) {
+    return;
+  }
+  globalGuildConf = client.settings.ensure(newMember.guild.id, defaultSettings);
+  guildId = newMember.guild.id;
+  a = globalGuildConf.channel;
+  main(a, guildId);
+})
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
