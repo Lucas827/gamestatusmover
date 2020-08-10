@@ -24,4 +24,8 @@
   "devDependencies": {
     "mocha": "^8.1.1"
   }
+"scripts": {
+  "test": "mocha"
+}
+
 }
