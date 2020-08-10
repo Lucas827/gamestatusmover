@@ -4,3 +4,5 @@ GameStatusMover is a Discord Bot that moves users to different voice channels ba
 !showconf: shows current configuration for the server.  
 !setconf: <setting> <value>: changes settings for the server.  
 !alias: <game> <alias>:(not yet implemented) adds an alias for a game, ex: !alias Counter-Strike:Global-Offensive CS:GO
+# Running
+To run the node app, make a botconfig.json file, and put your bot's token in, with the key name being "token".
