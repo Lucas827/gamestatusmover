@@ -20,5 +20,8 @@
     "better-sqlite3": "^7.1.0",
     "discord.js": "^12.2.0",
     "enmap": "^5.6.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.1"
   }
 }
