@@ -46,7 +46,6 @@ function moveUser(guildTBM) {
   currentGuild = client.guilds.cache.get(guildTBM);
   memberTBM = currentGuild.members.cache.get(userId);
   statusName = status.toString();
-  test = "Escape from Tarkov";
   memberTBM.voice.setChannel(client.channels.cache.find(channel => channel.name == statusName));
 }
 function main(b, d) { //starts process to move user
