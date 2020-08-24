@@ -119,13 +119,11 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   main(a, guildId);
 })
 client.on('presenceUpdate', (oldMember, newMember) => {
+  console.log("presence triggered");
   if(newMember === undefined) {
     return;
   }
   if(newMember.guild.id === undefined) {
-    return;
-  }
-  if(newMember.voice === undefined) {
     return;
   }
   globalGuildConf = client.settings.ensure(newMember.guild.id, defaultSettings);
