@@ -78,15 +78,15 @@ client.on("message", async (message) => {
   if (!message.guild || message.author.bot) {
     return;
   }
+  const adminRole = message.guild.roles.cache.find(
+    (guildConf) => guildConf.adminRole === "name"
+  );
   if (
     message.member.id !== message.guild.ownerID &&
     !message.member.roles.cache.has(adminRole)
   ) {
     return;
   }
-  const adminRole = message.guild.roles.cache.find(
-    (guildConf) => guildConf.adminRole === "name"
-  );
   const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
   if (message.content.indexOf(guildConf.prefix) !== 0) {
     return;
