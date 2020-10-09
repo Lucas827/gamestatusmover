@@ -57,6 +57,7 @@ function main(b, d) {
   getUser(b);
   getStatus(d);
 }
+function ping() {}
 //enmap per server config
 client.settings = new Enmap({
   name: "settings",
@@ -83,6 +84,9 @@ client.on("message", async (message) => {
   ) {
     return;
   }
+  const adminRole = message.guild.roles.cache.find(
+    (guildConf) => guildConf.adminRole === "name"
+  );
   const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
   if (message.content.indexOf(guildConf.prefix) !== 0) {
     return;
@@ -91,9 +95,6 @@ client.on("message", async (message) => {
   const command = args.shift().slice(guildConf.prefix.length).toLowerCase();
   // Commands Go Here
   if (command === "setconf") {
-    const adminRole = message.guild.roles.cache.find(
-      (guildConf) => guildConf.adminRole === "name"
-    );
     if (!adminRole && message.member.id !== message.guild.ownerID) {
       return message.reply("Administrator Role Not Found");
     } else if (
@@ -111,7 +112,6 @@ client.on("message", async (message) => {
       return;
     }
     client.settings.set(message.guild.id, value.join(" "), prop);
-
     message.channel.send(
       `Guild configuration item ${prop} has been changed to:\n\`${value.join(
         " "
@@ -124,6 +124,8 @@ client.on("message", async (message) => {
     });
     message.channel.send(`The following are the server's current configuration:
     \`\`\`${configProps.join("\n")}\`\`\``);
+  }
+  if (command === "ping") {
   }
 });
 //voiceStateUpdate
