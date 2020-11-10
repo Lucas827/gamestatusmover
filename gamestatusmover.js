@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const Enmap = require("enmap");
+const { exec } = require("child_process");
 const client = new Discord.Client();
 const jsonstring = fs.readFileSync("./botconfig.json");
 const botconfig = JSON.parse(jsonstring);
@@ -15,6 +16,7 @@ let guildTBM;
 let globalGuildConf;
 let guildId;
 let guildIdGetStatus;
+let target;
 let a;
 let b;
 let c;
@@ -57,7 +59,19 @@ function main(b, d) {
   getUser(b);
   getStatus(d);
 }
-function ping() {}
+function ping(target) {
+  exec(`ping ${target}`, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
+}
 //enmap per server config
 client.settings = new Enmap({
   name: "settings",
@@ -126,6 +140,8 @@ client.on("message", async (message) => {
     \`\`\`${configProps.join("\n")}\`\`\``);
   }
   if (command === "ping") {
+    //future ping cmd
+    ping("google.com");
   }
 });
 //voiceStateUpdate
