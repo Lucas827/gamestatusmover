@@ -140,7 +140,7 @@ client.on("message", async (message) => {
     \`\`\`${configProps.join("\n")}\`\`\``);
   }
   if (command === "ping") {
-    //future ping cmd
+    //ping cmd
     ping("google.com");
   }
 });
