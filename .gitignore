@@ -1,5 +1,3 @@
 #.gitignore
-botconfig.json
 data
 node_modules
-test

@@ -1,27 +1,23 @@
 {
   "name": "gamestatusmover",
   "version": "1.0.0",
-  "description": "GameStatusMover is a Discord Bot that moves users to different voice channels based on what game they are playing. # Commands !showconf: shows current configuration for the server.   !setconf: <setting> <value>: changes settings for the server.   !alias: <game> <alias>:(not yet implemented) adds an alias for a game, ex: !alias Counter-Strike:Global-Offensive CS:GO",
+  "description": "A Discord bot that moves users based on status.",
   "main": "gamestatusmover.js",
   "scripts": {
-    "test": "mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lucas827/gamestatusmover.git"
+    "url": "git+https://github.com/devhyper/gamestatusmover.git"
   },
-  "author": "Lucas",
+  "author": "devhyper",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Lucas827/gamestatusmover/issues"
+    "url": "https://github.com/devhyper/gamestatusmover/issues"
   },
-  "homepage": "https://github.com/Lucas827/gamestatusmover#readme",
+  "homepage": "https://github.com/devhyper/gamestatusmover#readme",
   "dependencies": {
-    "better-sqlite3": "^7.1.0",
-    "discord.js": "^12.2.0",
-    "enmap": "^5.6.1"
-  },
-  "devDependencies": {
-    "mocha": "^8.1.1"
+    "discord.js": "^12.5.1",
+    "enmap": "^5.8.2"
   }
 }
