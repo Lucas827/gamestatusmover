@@ -1,10 +1,12 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const Enmap = require("enmap");
-const { exec } = require("child_process");
+const execSync = require('child_process').execSync;
 const client = new Discord.Client();
 const jsonstring = fs.readFileSync("./botconfig.json");
 const botconfig = JSON.parse(jsonstring);
+let pingresult
+let pingscript;
 let status;
 let statusName;
 let chan;
@@ -17,6 +19,7 @@ let globalGuildConf;
 let guildId;
 let guildIdGetStatus;
 let target;
+let pingresultfiltered;
 let a;
 let b;
 let c;
@@ -60,17 +63,8 @@ function main(b, d) {
   getStatus(d);
 }
 function ping(target) {
-  exec(`ping ${target}`, (error, stdout, stderr) => {
-    if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-  });
+  const pingresult = execSync(`ping discord.com -c 4`, { encoding: 'utf-8' });
+  return pingresult;
 }
 //enmap per server config
 client.settings = new Enmap({
@@ -141,7 +135,11 @@ client.on("message", async (message) => {
   }
   if (command === "ping") {
     //ping cmd
-    ping("google.com");
+    pingresultfiltered = ping("discord.com");
+    pingresultfiltered = pingresultfiltered.substring(507);
+    pingresultfiltered = pingresultfiltered.slice(0, -17);
+    pingresultfiltered = pingresultfiltered + " ms"
+    message.channel.send(pingresultfiltered);
   }
 });
 //voiceStateUpdate
