@@ -126,11 +126,12 @@ client.on("message", async (message) => {
   }
   if (command === "ping") {
     //ping cmd
+    msg = await message.channel.send("Pinging...");
     pingResultFiltered = ping("discord.com", "4");
     pingResultFiltered = pingResultFiltered.substring(507);
     pingResultFiltered = pingResultFiltered.slice(0, -17);
     pingResultFiltered = pingResultFiltered + " ms"
-    message.channel.send(pingResultFiltered);
+    msg.edit(pingResultFiltered);
   }
 });
 //voiceStateUpdate
