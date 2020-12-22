@@ -5,25 +5,16 @@ const execSync = require('child_process').execSync;
 const client = new Discord.Client();
 const jsonstring = fs.readFileSync("./botconfig.json");
 const botconfig = JSON.parse(jsonstring);
-let pingresult
-let pingscript;
 let status;
 let statusName;
 let chan;
-let user;
 let userId;
 let memberTBM;
 let userTBM;
-let guildTBM;
 let globalGuildConf;
 let guildId;
-let guildIdGetStatus;
-let target;
-let pingresultfiltered;
+let pingResultFiltered;
 let a;
-let b;
-let c;
-let d;
 function getUser(c) {
   //this function gets the user to be moved(userTBM)
   chan = client.channels.cache.find(
@@ -62,8 +53,8 @@ function main(b, d) {
   getUser(b);
   getStatus(d);
 }
-function ping(target) {
-  const pingresult = execSync(`ping discord.com -c 4`, { encoding: 'utf-8' });
+function ping(target, packets) {
+  const pingresult = execSync(`ping ${target} -c ${packets}`, { encoding: 'utf-8' });
   return pingresult;
 }
 //enmap per server config
@@ -135,11 +126,11 @@ client.on("message", async (message) => {
   }
   if (command === "ping") {
     //ping cmd
-    pingresultfiltered = ping("discord.com");
-    pingresultfiltered = pingresultfiltered.substring(507);
-    pingresultfiltered = pingresultfiltered.slice(0, -17);
-    pingresultfiltered = pingresultfiltered + " ms"
-    message.channel.send(pingresultfiltered);
+    pingResultFiltered = ping("discord.com", "4");
+    pingResultFiltered = pingResultFiltered.substring(507);
+    pingResultFiltered = pingResultFiltered.slice(0, -17);
+    pingResultFiltered = pingResultFiltered + " ms"
+    message.channel.send(pingResultFiltered);
   }
 });
 //voiceStateUpdate
